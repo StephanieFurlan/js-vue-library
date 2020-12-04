@@ -1,0 +1,8 @@
+.book-list {
+   list-style-type: none;
+}
+
+.book-list > li > div {
+   display: inline-block;
+   width: 30%;
+}
