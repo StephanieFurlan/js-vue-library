@@ -14,6 +14,11 @@
          <button @click="addBook" type="button" name="button">Add Book</button>
 
          <book-list :books="books"></book-list>
+
+
+         <input v-model="search" type="text" name="title" placeholder="Title...">
+         {{search}}
+         <button @click="find" type="button" name="button">Search</button>
       </div>
       <script src="main.js" charset="utf-8"></script>
    </body>
