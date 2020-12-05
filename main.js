@@ -1,5 +1,5 @@
 
-Vue.component('book-list', {
+var bookList = Vue.component('book-list', {
    props: [
       'books'
    ],
@@ -21,9 +21,9 @@ Vue.component('book-list', {
 
 var app = new Vue({
    el: '#app',
-   component: [
-      'book-list'
-   ],
+   components: {
+      bookList
+   },
    data: {
       title: '',
       author: '',
