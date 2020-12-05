@@ -1,3 +1,80 @@
+* {
+   box-sizing: border-box;
+   margin: 0;
+   padding: 0;
+}
+
+
+body {
+   font-family: 'Roboto', sans-serif;
+}
+
+header {
+   height: 80px;
+   background-color: #444444;
+   position: relative;
+   color: white;
+   padding: 0 20px 0 20px;
+}
+
+header h1 {
+   display: inline-block;
+   line-height: 80px;
+   vertical-align: middle;
+   margin-left: 10px;
+}
+
+#logo-icon {
+   font-size: 40px;
+   line-height: 80px;
+   vertical-align: middle;
+   color: #00DDAA;
+}
+
+#search-icon {
+   float: right;
+   line-height: 80px;
+   vertical-align: middle;
+   font-size: 20px;
+}
+
+#search-icon:hover {
+   color: #00DDAA;
+}
+
+#search-container {
+   height: 200px;
+   position: relative;
+   background-image: url("https://lizfreecom.files.wordpress.com/2016/09/books-banner-140.jpg");
+   background-position: center;
+   background-size: cover;
+   background-repeat: no-repeat;
+}
+
+.active {
+   display: none;
+}
+
+#search-container input {
+   position: absolute;
+   left: 50%;
+   top: 50%;
+   transform: translate(-50%, -50%);
+   width: 30%;
+   border-radius: 20px;
+   border: 1px solid #00DDAA;
+   color: #a0d18c;
+   height: 40px;
+   padding-left: 20px;
+   opacity: 0.8;
+
+}
+
+
+
+
+
+
 .book-list {
    list-style-type: none;
 }
