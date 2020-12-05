@@ -15,24 +15,45 @@
             <i id="logo-icon" class="fas fa-book"></i>
             <h1 id="page-tit">The book's world</h1>
             <i id="search-icon" @click="toggleSearch" class="fas fa-search"></i>
+            <i id="add-icon" @click="toggleAdd" class="fas fa-plus-square"></i>
          </header>
 
-         <div id="search-container" v-show="isActive">
-            <input type="text" placeholder="Search book...">
+         <div id="search-container" v-show="searchActive">
+            <input type="text" v-model="search" placeholder="Search book by title...">
+            <button @click="find" type="button" name="button">Search</button>
+         </div>
+
+         <div id="add-container" v-show="addActive">
+            <div id="form-add-container">
+               <h3>Add new book</h3>
+               <div>
+                  <label for="title">Title</label>
+                  <input v-model="title" type="text" name="title" placeholder="Title...">
+               </div>
+               <div>
+                  <label for="author">Author</label>
+                  <input v-model="author" type="text" name="author" placeholder="Author...">
+               </div>
+               <div>
+                  <label for="year">Year</label>
+                  <input v-model="year" type="number" name="year" placeholder="Year...">
+               </div>
+               <div id="button-container">
+                  <button id="add-button" @click="addBook" type="button" name="button">Add Book</button>
+               </div>
+
+            </div>
+
          </div>
 
          <div>
-            <input v-model="title" type="text" name="title" placeholder="Title...">
-            <input v-model="author" type="text" name="author" placeholder="Author...">
-            <input v-model="year" type="number" name="year" placeholder="Year...">
-            <button @click="addBook" type="button" name="button">Add Book</button>
+
 
             <book-list :books="books"></book-list>
 
 
-            <input v-model="search" type="text" name="title" placeholder="Title...">
-            {{search}}
-            <button @click="find" type="button" name="button">Search</button>
+
+
          </div>
       </div>
       <script src="main.js" charset="utf-8"></script>

@@ -29,7 +29,8 @@ var app = new Vue({
       author: '',
       year: '',
       search: '',
-      isActive: false,
+      searchActive: false,
+      addActive: false,
       books : [
       	{
       		title: "Il vecchio e il mare",
@@ -65,8 +66,14 @@ var app = new Vue({
          console.log(findByAuthor(this.books, this.search))
       },
       toggleSearch: function() {
-         this.isActive = !this.isActive;
+         this.searchActive = !this.searchActive;
+         this.addActive = false;
+      },
+      toggleAdd: function() {
+         this.addActive = !this.addActive;
+         this.searchActive = false;
       }
+
    }
 })
 
