@@ -64,30 +64,41 @@ header h1 {
 }
 
 
-#search-container input {
+#search-field {
+   width: 30%;
    position: absolute;
    left: 50%;
    top: 50%;
    transform: translate(-50%, -50%);
-   width: 30%;
+}
+
+#search-field input {
+
    border-radius: 20px;
    border: 1px solid #00DDAA;
-   color: #a0d18c;
    height: 40px;
-   padding-left: 20px;
    opacity: 0.8;
+   width: 300px;
+   padding-left: 20px;
 
 }
 
 #add-container {
+   background-image: url("https://lizfreecom.files.wordpress.com/2016/09/books-banner-140.jpg");
+   background-position: center;
+   background-size: cover;
+   background-repeat: no-repeat;
+   padding: 10px;
 }
 
 #form-add-container {
    width: 30%;
-   margin: 10px auto;
+   margin: 0 auto;
    background-color: red;
    padding: 20px;
    background-color: #444444;
+   border-radius: 20px;
+   border: 1px solid white;
 }
 
 #form-add-container label {
@@ -110,14 +121,28 @@ header h1 {
    text-align: center;
    margin-top: 20px;
 }
-#add-button {
-   padding: 10px 20px;
+
+#error-message {
+   margin: 5px 0;
+   color: red;
+}
+#add-button,
+#search-button {
+   padding: 5px 10px;
    background-color:  #00DDAA;
    color: white;
    font-size: 18px;
    border-radius: 10px;
 }
+#search-button {
+   margin-left: 20px;
+}
 
+button, input {
+  outline: none;
+  box-shadow: none;
+  border: none;
+}
 
 
 

@@ -19,8 +19,11 @@
          </header>
 
          <div id="search-container" v-show="searchActive">
-            <input type="text" v-model="search" placeholder="Search book by title...">
-            <button @click="find" type="button" name="button">Search</button>
+            <div id="search-field">
+               <input type="text" v-model="search" placeholder="Search book by title...">
+               <button id="search-button" @click="find" type="button" name="button">Search</button>
+            </div>
+
          </div>
 
          <div id="add-container" v-show="addActive">
@@ -39,6 +42,7 @@
                   <input v-model="year" type="number" name="year" placeholder="Year...">
                </div>
                <div id="button-container">
+                  <div id="error-message" v-show="addShowMessage">{{message}}</div>
                   <button id="add-button" @click="addBook" type="button" name="button">Add Book</button>
                </div>
 

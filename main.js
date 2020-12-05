@@ -31,6 +31,8 @@ var app = new Vue({
       search: '',
       searchActive: false,
       addActive: false,
+      addShowMessage: false,
+      message: '',
       books : [
       	{
       		title: "Il vecchio e il mare",
@@ -55,21 +57,28 @@ var app = new Vue({
       ]
    },
    methods: {
-      addBook: function() {
-         this.books.push({
-            title: this.title,
-            author: this.author,
-            year: this.year
-         });
+      addBook() {
+         var notEmpty = validateForm(this.title, this.author, this.year);
+         if (notEmpty) {
+            this.books.push({
+               title: this.title,
+               author: this.author,
+               year: this.year
+            });
+         } else {
+            this.addShowMessage = true;
+            this.message = "Error: empty fields not allowed!";
+         }
+
       },
-      find: function() {
+      find() {
          console.log(findByAuthor(this.books, this.search))
       },
-      toggleSearch: function() {
+      toggleSearch() {
          this.searchActive = !this.searchActive;
          this.addActive = false;
       },
-      toggleAdd: function() {
+      toggleAdd() {
          this.addActive = !this.addActive;
          this.searchActive = false;
       }
@@ -81,4 +90,8 @@ function findByAuthor(bookArray, author) {
    return bookArray.filter(book => {
       return book.author.toLowerCase() == author.toLowerCase();
    })
+}
+
+function validateForm(title, author, year) {
+   return (title != '' && author != '' && year != '')
 }
