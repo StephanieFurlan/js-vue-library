@@ -148,6 +148,13 @@ button, input {
 
 .book-list {
    list-style-type: none;
+   margin: 20px;
+}
+
+.book-list li:first-child > div {
+   background-color: #00DDAA;
+   border: 1px solid black;
+   color: white;
 }
 
 .book-list > li > div {

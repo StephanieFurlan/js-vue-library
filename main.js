@@ -45,14 +45,39 @@ var app = new Vue({
       		year: 1994
       	},
       	{
+      		title: "La forma dell'acqua 1",
+      		author: "Andrea Camilleri",
+      		year: 1995
+      	},
+      	{
+      		title: "La forma dell'acqua 2",
+      		author: "Andrea Camilleri",
+      		year: 1996
+      	},
+      	{
       		title: "Elogio della follia",
       		author: "Henri Laborit",
       		year: 1976
       	},
       	{
-      		title: "La camera azzurra",
+      		title: "La camera azzurra 1",
+      		author: "George Simenon",
+      		year: 1963
+      	},
+      	{
+      		title: "La camera azzurra 2",
       		author: "George Simenon",
       		year: 1964
+      	},
+      	{
+      		title: "La camera azzurra 3",
+      		author: "George Simenon",
+      		year: 1965
+      	},
+      	{
+      		title: "La camera azzurra 4",
+      		author: "George Simenon",
+      		year: 1966
       	}
       ]
    },
@@ -65,6 +90,10 @@ var app = new Vue({
                author: this.author,
                year: this.year
             });
+
+            // maybe not here!!! after click close form and display message elsewhere
+            this.addShowMessage = true;
+            this.message = "Book added successfully! -- to change where to put on screen";
          } else {
             this.addShowMessage = true;
             this.message = "Error: empty fields not allowed!";
@@ -72,7 +101,10 @@ var app = new Vue({
 
       },
       find() {
-         console.log(findByAuthor(this.books, this.search))
+         var filteredArray = findByAuthor(this.books, this.search);
+         // NOT GOOD!!!! overriding this.books
+         this.books = filteredArray;
+
       },
       toggleSearch() {
          this.searchActive = !this.searchActive;
