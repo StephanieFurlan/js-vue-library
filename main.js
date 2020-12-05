@@ -1,7 +1,14 @@
+// to do
+// button click - change layout
+// messagge for incorrect data (decide where to put)
+// category message maybe?? - near the show all button?
+// clear inputs after acept state
+// filtered array is the better choice??? maybe map first to this.book without a beforeMount method?
+
 
 var bookList = Vue.component('book-list', {
    props: [
-      'books'
+      'filtered'
    ],
    template: `
       <ul class="book-list">
@@ -10,7 +17,7 @@ var bookList = Vue.component('book-list', {
             <div>AUTHOR</div>
             <div>YEAR</div>
          </li>
-         <li v-for="book in books">
+         <li v-for="book in filtered">
             <div>{{book.title}}</div>
             <div>{{book.author}}</div>
             <div>{{book.year}}</div>
@@ -79,7 +86,8 @@ var app = new Vue({
       		author: "George Simenon",
       		year: 1966
       	}
-      ]
+      ],
+      filtered : []
    },
    methods: {
       addBook() {
@@ -100,11 +108,14 @@ var app = new Vue({
          }
 
       },
-      find() {
-         var filteredArray = findByAuthor(this.books, this.search);
-         // NOT GOOD!!!! overriding this.books
-         this.books = filteredArray;
+      searchBook() {
+         this.filtered = findByAuthor(this.books, this.search);
 
+      },
+      showAll() {
+         this.filtered = this.books;
+         this.addActive = false;
+         this.searchActive = false;
       },
       toggleSearch() {
          this.searchActive = !this.searchActive;
@@ -115,7 +126,10 @@ var app = new Vue({
          this.searchActive = false;
       }
 
-   }
+   },
+   beforeMount(){
+    this.filtered = this.books;
+ }
 })
 
 function findByAuthor(bookArray, author) {

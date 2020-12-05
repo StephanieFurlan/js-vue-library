@@ -127,12 +127,17 @@ header h1 {
    color: red;
 }
 #add-button,
-#search-button {
+#search-button,
+#showAll {
    padding: 5px 10px;
    background-color:  #00DDAA;
    color: white;
    font-size: 18px;
    border-radius: 10px;
+}
+
+#showAll {
+   background-color: #444444;
 }
 #search-button {
    margin-left: 20px;
@@ -146,18 +151,29 @@ button, input {
 
 
 
+#category-container {
+   margin-left: 20px;
+   padding: 20px 0;
+}
+
 .book-list {
    list-style-type: none;
-   margin: 20px;
+   margin-left: 20px;
 }
+
 
 .book-list li:first-child > div {
    background-color: #00DDAA;
    border: 1px solid black;
    color: white;
+   border-radius: 5px;
+   font-weight: bold;
 }
 
 .book-list > li > div {
    display: inline-block;
    width: 30%;
+   line-height: 2;
+   padding: 5px;
+   border-bottom: 1px solid black;
 }

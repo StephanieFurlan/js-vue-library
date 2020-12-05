@@ -11,21 +11,21 @@
    </head>
    <body>
       <div id="app">
+         <!-- Header -->
          <header>
             <i id="logo-icon" class="fas fa-book"></i>
             <h1 id="page-tit">The book's world</h1>
             <i id="search-icon" @click="toggleSearch" class="fas fa-search"></i>
             <i id="add-icon" @click="toggleAdd" class="fas fa-plus-square"></i>
          </header>
-
+         <!-- Search div -->
          <div id="search-container" v-show="searchActive">
             <div id="search-field">
                <input type="text" v-model="search" placeholder="Search book by author...">
-               <button id="search-button" @click="find" type="button" name="button">Search</button>
+               <button id="search-button" @click="searchBook" type="button" name="button">Search</button>
             </div>
-
          </div>
-
+         <!-- Add book form -->
          <div id="add-container" v-show="addActive">
             <div id="form-add-container">
                <h3>Add new book</h3>
@@ -45,19 +45,14 @@
                   <div id="error-message" v-show="addShowMessage">{{message}}</div>
                   <button id="add-button" @click="addBook" type="button" name="button">Add Book</button>
                </div>
-
             </div>
-
          </div>
 
+         <div id="category-container">
+            <button @click="showAll" id="showAll">Show All</button>
+         </div>
          <div>
-
-
-            <book-list :books="books"></book-list>
-
-
-
-
+            <book-list :filtered="filtered"></book-list>
          </div>
       </div>
       <script src="main.js" charset="utf-8"></script>
