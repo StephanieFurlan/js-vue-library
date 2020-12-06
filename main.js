@@ -1,11 +1,3 @@
-// to do
-// button click - change layout
-// messagge for incorrect data (decide where to put)
-// category message maybe?? - near the show all button?
-// clear inputs after acept state
-// filtered array is the better choice??? maybe map first to this.book without a beforeMount method?
-
-
 var bookList = Vue.component('book-list', {
    props: [
       'filtered'
@@ -26,20 +18,14 @@ var bookList = Vue.component('book-list', {
       `
 })
 
+
 var app = new Vue({
    el: '#app',
    components: {
       bookList
    },
    data: {
-      title: '',
-      author: '',
-      year: '',
-      search: '',
-      searchActive: false,
-      addActive: false,
-      addShowMessage: false,
-      message: '',
+      showSearchInput: false,
       books : [
       	{
       		title: "Il vecchio e il mare",
@@ -87,9 +73,37 @@ var app = new Vue({
       		year: 1966
       	}
       ],
-      filtered : []
+      filtered : [],
+      searchText: "",
+      showForm: false,
+      title: "",
+      author: "",
+      year: ""
    },
    methods: {
+      search() {
+         this.showSearchInput = !this.showSearchInput;
+         this.$nextTick(() => {
+            this.$refs.search.focus();
+         });
+      },
+      searchBook(e) {
+         // search book - no matter which attribute! just string match
+         // not case sensitive
+         if (e.keyCode === 13) {
+            // enter pressed
+            var searchText = this.searchText.toUpperCase();
+            this.filtered = this.books.filter(book => {
+               return (book.title.toUpperCase().includes(searchText) | book.author.toUpperCase().includes(searchText) | book.year.toString().toUpperCase().includes(searchText));
+            })
+         }
+      },
+      showAll() {
+         this.filtered = this.books;
+      },
+      showAddBookForm() {
+         this.showForm = !this.showForm;
+      },
       addBook() {
          var notEmpty = validateForm(this.title, this.author, this.year);
          if (notEmpty) {
@@ -98,45 +112,15 @@ var app = new Vue({
                author: this.author,
                year: this.year
             });
-
-            // maybe not here!!! after click close form and display message elsewhere
-            this.addShowMessage = true;
-            this.message = "Book added successfully! -- to change where to put on screen";
-         } else {
-            this.addShowMessage = true;
-            this.message = "Error: empty fields not allowed!";
+            this.showAddBookForm();
          }
-
       },
-      searchBook() {
-         this.filtered = findByAuthor(this.books, this.search);
-
-      },
-      showAll() {
-         this.filtered = this.books;
-         this.addActive = false;
-         this.searchActive = false;
-      },
-      toggleSearch() {
-         this.searchActive = !this.searchActive;
-         this.addActive = false;
-      },
-      toggleAdd() {
-         this.addActive = !this.addActive;
-         this.searchActive = false;
-      }
 
    },
    beforeMount(){
-    this.filtered = this.books;
- }
-})
-
-function findByAuthor(bookArray, author) {
-   return bookArray.filter(book => {
-      return book.author.toLowerCase() == author.toLowerCase();
-   })
-}
+      this.filtered = this.books;
+   }
+});
 
 function validateForm(title, author, year) {
    return (title != '' && author != '' && year != '')

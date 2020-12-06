@@ -3,58 +3,71 @@
    <head>
       <meta charset="utf-8">
       <title>Library</title>
+
       <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
       <link rel="preconnect" href="https://fonts.gstatic.com">
       <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+
       <link rel="stylesheet" href="style.css">
    </head>
    <body>
       <div id="app">
-         <!-- Header -->
+         <!-- HEADER -->
          <header>
             <i id="logo-icon" class="fas fa-book"></i>
-            <h1 id="page-tit">The book's world</h1>
-            <i id="search-icon" @click="toggleSearch" class="fas fa-search"></i>
-            <i id="add-icon" @click="toggleAdd" class="fas fa-plus-square"></i>
-         </header>
-         <!-- Search div -->
-         <div id="search-container" v-show="searchActive">
-            <div id="search-field">
-               <input type="text" v-model="search" placeholder="Search book by author...">
-               <button id="search-button" @click="searchBook" type="button" name="button">Search</button>
+            <h1>The book's world</h1>
+            <div id="icon-container">
+               <i id="search-icon" @click="search" class="fas fa-search"></i>
+               <input
+                  id="search-input"
+                  type="text"
+                  ref="search"
+                  v-show="showSearchInput"
+                  v-on:keyup="searchBook"
+                  placeholder="Search..."
+                  v-model="searchText"
+               >
             </div>
-         </div>
-         <!-- Add book form -->
-         <div id="add-container" v-show="addActive">
-            <div id="form-add-container">
-               <h3>Add new book</h3>
-               <div>
-                  <label for="title">Title</label>
-                  <input v-model="title" type="text" name="title" placeholder="Title...">
-               </div>
-               <div>
-                  <label for="author">Author</label>
-                  <input v-model="author" type="text" name="author" placeholder="Author...">
-               </div>
-               <div>
-                  <label for="year">Year</label>
-                  <input v-model="year" type="number" name="year" placeholder="Year...">
-               </div>
-               <div id="button-container">
-                  <div id="error-message" v-show="addShowMessage">{{message}}</div>
-                  <button id="add-button" @click="addBook" type="button" name="button">Add Book</button>
-               </div>
+         </header>
+         <div id="options-container">
+
+            <div id="options__add">
+               <span>Add Book</span>
+               <i id="add-icon" @click="showAddBookForm" class="fas fa-plus-square"></i>
+               <form id="form-add-container" v-show="showForm" action="/action_page.php">
+                  <h3>ADD NEW BOOK</h3>
+                  <div>
+                     <label for="title">Title</label>
+                     <input v-model="title" type="text" name="title" placeholder="Title...">
+                  </div>
+                  <div>
+                     <label for="author">Author</label>
+                     <input v-model="author" type="text" name="author" placeholder="Author...">
+                  </div>
+                  <div>
+                     <label for="year">Year</label>
+                     <input v-model="year" type="number" name="year" placeholder="Year...">
+                  </div>
+                  <div id="button-container">
+                     <!-- <div id="error-message" v-show="addShowMessage">{{message}}</div> -->
+                     <button id="add-button" @click="addBook" type="button" name="button">Add Book</button>
+                     <!-- <input type="submit" value="Submit"> -->
+                  </div>
+
+                  <i id="esc" @click="showAddBookForm" class="far fa-window-close"></i>
+               </form>
+            </div>
+            <div id="options__filter">
+               <i id="filter-icon" class="fas fa-filter"></i>
+               <button id="showAll" @click="showAll">Show All</button>
             </div>
          </div>
 
-         <div id="category-container">
-            <button @click="showAll" id="showAll">Show All</button>
-         </div>
-         <div>
-            <book-list :filtered="filtered"></book-list>
-         </div>
+
+         <book-list :filtered="filtered"></book-list>
       </div>
+
       <script src="main.js" charset="utf-8"></script>
    </body>
 </html>
