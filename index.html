@@ -72,7 +72,12 @@
          </div>
          <div id="filter-box" @change="searchAuthor" v-show="showFilters">
             <label for="">Choose Author: </label>
-            <authors-list :authorslist="authorsList"></authors-list>
+            <select v-model="selected">
+               <option>All</option>
+               <option v-for="author in authorsList" v-bind:value="author">
+                {{ author }}
+              </option>
+            </select>
          </div>
 
 

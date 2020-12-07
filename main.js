@@ -18,17 +18,7 @@ var bookList = Vue.component('book-list', {
       `
 })
 
-var authorsList = Vue.component('authors-list', {
-   props: [
-      'authorslist',
-      'selected'
-   ],
-   template: `
-      <select class="filter-select" v-model="selected">
-         <option v-for="author in authorslist" v-bind:value="author" >{{ author }}</option>
-      </select>
-      `
-})
+
 
 
 
@@ -36,8 +26,7 @@ var authorsList = Vue.component('authors-list', {
 var app = new Vue({
    el: '#app',
    components: {
-      bookList,
-      authorsList
+      bookList
    },
    data: {
       showSearchInput: false,
@@ -94,7 +83,8 @@ var app = new Vue({
       showFilters: false,
       title: "",
       author: "",
-      year: ""
+      year: "",
+      selected: ""
    },
    methods: {
       search() {
@@ -115,9 +105,13 @@ var app = new Vue({
          }
       },
       searchAuthor() {
-         this.filtered = this.books.filter(book => {
-            return book.author == this.selected;
-         })
+         if (this.selected != "All") {
+            this.filtered = this.books.filter(book => {
+               return book.author == this.selected;
+            })
+         } else {
+            this.showAll();
+         }
       },
       showAll() {
          this.filtered = this.books;
@@ -154,16 +148,7 @@ var app = new Vue({
       },
       authorsList: function() {
          return listAuthors(this.books);
-      },
-      selected:{
-            get:function () {
-                return this.authorsList[0];
-            },
-            set: function(newValue){
-                // $emit is the correct way to update props:
-                this.$emit('update:value', newValue);
-            }
-        }
+      }
 
    }
 });
