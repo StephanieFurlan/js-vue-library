@@ -62,6 +62,8 @@ header h1 {
    height: 60px;
    justify-content: space-between;
    padding: 0 20px;
+   box-shadow: rgba(25, 28, 31, 0.04) 0px 8px 16px,
+               rgba(25, 28, 31, 0.04) 0px -1px 0px;
 }
 
 #options__add {
@@ -91,12 +93,21 @@ header h1 {
 #filter-icon {
    font-size: 20px;
    margin-right: 20px;
+
 }
 
 #filter-icon:hover {
    /* opacity: 0.8; */
    cursor: pointer;
 }
+
+#filter-box {
+   padding: 20px;
+   box-shadow: rgba(25, 28, 31, 0.04) 0px 8px 16px,
+               rgba(25, 28, 31, 0.04) 0px -1px 0px;
+}
+
+
 
 #showAll,
 #add-button {

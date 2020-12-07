@@ -18,11 +18,26 @@ var bookList = Vue.component('book-list', {
       `
 })
 
+var authorsList = Vue.component('authors-list', {
+   props: [
+      'authorslist',
+      'selected'
+   ],
+   template: `
+      <select class="filter-select" v-model="selected">
+         <option v-for="author in authorslist" v-bind:value="author" >{{ author }}</option>
+      </select>
+      `
+})
+
+
+
 
 var app = new Vue({
    el: '#app',
    components: {
-      bookList
+      bookList,
+      authorsList
    },
    data: {
       showSearchInput: false,
@@ -76,6 +91,7 @@ var app = new Vue({
       filtered : [],
       searchText: "",
       showForm: false,
+      showFilters: false,
       title: "",
       author: "",
       year: ""
@@ -98,11 +114,20 @@ var app = new Vue({
             })
          }
       },
+      searchAuthor() {
+         this.filtered = this.books.filter(book => {
+            return book.author == this.selected;
+         })
+      },
       showAll() {
          this.filtered = this.books;
+         console.log(this.minYear);
       },
       showAddBookForm() {
          this.showForm = !this.showForm;
+      },
+      showFiltersForm() {
+         this.showFilters = !this.showFilters;
       },
       addBook() {
          var notEmpty = validateForm(this.title, this.author, this.year);
@@ -114,14 +139,58 @@ var app = new Vue({
             });
             this.showAddBookForm();
          }
-      },
+      }
 
    },
    beforeMount(){
       this.filtered = this.books;
+   },
+   computed: {
+      minYear: function() {
+         return range(this.books)[0];
+      },
+      maxYear: function() {
+         return range(this.books)[1];
+      },
+      authorsList: function() {
+         return listAuthors(this.books);
+      },
+      selected:{
+            get:function () {
+                return this.authorsList[0];
+            },
+            set: function(newValue){
+                // $emit is the correct way to update props:
+                this.$emit('update:value', newValue);
+            }
+        }
+
    }
 });
 
+
 function validateForm(title, author, year) {
    return (title != '' && author != '' && year != '')
+}
+
+function listAuthors(booksArray) {
+   let authors = [];
+   booksArray.forEach(book => {
+      if (!authors.includes(book.author)) {
+         authors.push(book.author);
+      }
+   })
+   return authors;
+}
+
+function range(booksArray) {
+   let years = [];
+   booksArray.forEach(book => {
+      if (!years.includes(book.year)) {
+         years.push(book.year);
+      }
+   })
+   let x = Math.min.apply(Math, years);
+   let y = Math.max.apply(Math, years);
+   return [x, y];
 }

@@ -35,7 +35,8 @@
             <div id="options__add">
                <span>Add Book</span>
                <i id="add-icon" @click="showAddBookForm" class="fas fa-plus-square"></i>
-               <form id="form-add-container" v-show="showForm" action="/action_page.php">
+               <form id="form-add-container"
+                  v-show="showForm" action="/action_page.php">
                   <h3>ADD NEW BOOK</h3>
                   <div>
                      <label for="title">Title</label>
@@ -59,13 +60,25 @@
                </form>
             </div>
             <div id="options__filter">
-               <i id="filter-icon" class="fas fa-filter"></i>
+               <i id="filter-icon" @click="showFiltersForm" class="fas fa-filter"></i>
+
+
+
                <button id="showAll" @click="showAll">Show All</button>
+
             </div>
+
+
+         </div>
+         <div id="filter-box" @change="searchAuthor" v-show="showFilters">
+            <label for="">Choose Author: </label>
+            <authors-list :authorslist="authorsList"></authors-list>
          </div>
 
 
          <book-list :filtered="filtered"></book-list>
+
+
       </div>
 
       <script src="main.js" charset="utf-8"></script>
